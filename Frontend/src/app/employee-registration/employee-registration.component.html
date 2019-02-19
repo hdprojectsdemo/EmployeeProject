@@ -1,0 +1,87 @@
+<div class="container-width">
+  <div class="row">
+    <div class="col-5 offset-md-3 offset-lg-3">
+      <div class="card mt-4">
+        <div class="card-header text-white bg-dark text-center">
+          <strong>REGISTRATION</strong>
+        </div>
+        <div class="card-body">
+          <form name="form" (ngSubmit)="f.form.valid && addEmployees(model)" #f="ngForm" novalidate>
+
+            <div class="form-group">
+              <input type="text" class="form-control" [value]="empID" name="empID" hidden [(ngModel)]="model.empID1"
+                #empID="ngModel" />
+
+            </div>
+
+            <div class="form-group">
+              <label for="empName">Name</label>
+              <input type="text" class="form-control" name="empName" [(ngModel)]="model.empName" #empName="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && empName.invalid }" required />
+              <div *ngIf="f.submitted && empName.invalid" class="invalid-feedback">
+                <div *ngIf="empName.errors.required">Name is required</div>
+              </div>
+            </div>
+
+
+
+            <div class="form-group">
+              <label for="emailID">EmailID</label>
+              <input type="email" class="form-control" name="emailID" [(ngModel)]="model.emailID" #emailID="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && emailID.invalid }" required />
+              <div *ngIf="f.submitted && emailID.invalid" class="invalid-feedback">
+                <div *ngIf="emailID.errors.required">email is required</div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label for="contactNo">ContactNo</label>
+              <input type="text" class="form-control" name="contactNo" [(ngModel)]="model.contactNo" #contactNo="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && contactNo.invalid }" required maxlength="10" pattern="^[0-9]{10}" />
+              <div *ngIf="f.submitted && contactNo.invalid" class="invalid-feedback">
+                <div *ngIf="contactNo.errors.required">contactNo is required</div>
+                <div *ngIf="contactNo.errors.maxlength">contactNo must be 10 digit Number</div>
+                <div *ngIf="contactNo.errors.pattern">contactNo must be 10 digit Number</div>
+              </div>
+            </div>
+
+
+
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="address" class="form-control" name="address" [(ngModel)]="model.address" #address="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && address.invalid }" required />
+              <div *ngIf="f.submitted && address.invalid" class="invalid-feedback">
+                <div *ngIf="address.errors.required">Address is required</div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label for="state">State</label>
+              <select class="custom-select" name="state" [(ngModel)]="model.state" #state="ngModel" (ngModelChange)="getCity($event)">
+                <option *ngFor="let item of state1" [value]="item.stateID">
+                    {{item.stateName}}
+                  </option>
+              </select>
+            </div>
+
+           <div class="form-group">
+             <label for="city">City</label>
+             <select class="custom-select"  name="city" [(ngModel)]="model.city" #city="ngModel">
+               <option *ngFor="let item of city1">
+                 {{item.cityName}}
+               </option>
+             </select>
+           </div>
+            
+            <div class="form-group">
+              <button type="submit" class="btn btn-dark" [disabled]="f.invalid">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
